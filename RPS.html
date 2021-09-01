@@ -1,0 +1,132 @@
+<head>
+<body>
+
+
+<script>
+    function computerPlay(){
+        // Pick a random number between 1 and 3 
+        //Each number is assigned Rock Paper and Scissors respectively
+        let x = Math.floor(Math.random()*3) + 1;
+        if(x === 1){
+            return 'Rock';
+        }
+        else if(x===2){
+            return 'Paper';
+        }
+        else if(x===3){
+            return 'Scissors';
+        }
+        else{
+            return `I don't know how this happened but this is not a 
+            selection.`;
+        }
+    }
+    function playRound(playerSelection,computerSelection){
+
+        // plays the round out based on what you choose and the ai chooses
+            if(playerSelection === 'ROCK' && computerSelection === 'Scissors'){
+                return 'You win! Rock beats Scissors';
+            }
+            else if(playerSelection === 'ROCK' && computerSelection === 'Paper'){
+                return 'You lose :(. Paper beats Rock.';
+            }
+            else if(playerSelection === 'SCISSORS' && computerSelection === 'Rock'){
+                return 'YOu lose :(. Rock beats Scissors.';
+            }
+            else if(playerSelection === 'SCISSORS' && computerSelection === 'Paper'){
+                return 'You win! Scissors beats Paper';
+            }
+            else if(playerSelection === 'PAPER' && computerSelection === 'Rock'){
+                return 'You win! Papers beats Rock';
+            }
+            else if(playerSelection === 'PAPER' && computerSelection === 'Scissors'){
+                return 'You lose :(. Scissors beats Paper';
+            }
+            else{
+                return `It's a draw! Nobody wins!`;
+            }
+    
+         
+    }
+
+    function scoreUpdate(endResult){
+        //updates the score of each player
+        switch(endResult){
+            case 'You win! Rock beats Scissors':
+            case 'You win! Scissors beats Paper':
+            case 'You win! Papers beats Rock': humanScore++; break;
+
+            case 'You lose :(. Paper beats Rock.'  :
+            case 'YOu lose :(. Rock beats Scissors.':
+            case 'You lose :(. Scissors beats Paper': computerScore++; break;
+
+        }
+    }
+       
+    let humanScore = 0;
+    let computerScore = 0;
+    let endResult;
+
+    function game(){
+        
+        let playerSelection;
+        let computerSelection;
+        let playGame = true;
+        let choice;
+        while(playGame){
+            choice = '';
+            for(var i = 1; i <= 5;i++){
+            //make sure the player enters a valid input
+            while(playerSelection !== 'ROCK' && playerSelection !== 'SCISSORS' && playerSelection !== 'PAPER'){
+                playerSelection = prompt('Enter Rock, Paper, or Scissors');
+                playerSelection = playerSelection.toUpperCase(); //case sensitivity doesnt matter
+            }
+            //the game plays out here
+            computerSelection = computerPlay();
+            endResult=playRound(playerSelection,computerSelection);
+            console.log(endResult);
+            scoreUpdate(endResult);
+            console.log('HUMAN SCORE: '+humanScore);
+            console.log('COMPUTER SCORE: '+computerScore);
+            playerSelection = null; //make player make nother choice
+        }
+        //announces outcome of all 5 games
+        if(computerScore > humanScore){
+            console.log('YOU LOSE!');
+        }
+        else if(computerScore < humanScore){
+            console.log('YOU WIN!')
+        }
+        else{
+            console.log(`ITS A DRAW!`);
+        }
+        humanScore = 0;
+        computerScore = 0;
+        endResult = '';
+        //give the player the option to play another set of 5
+        while(choice !== 'YES' && choice !== 'NO'){
+            choice = prompt('Do you wish to play again? Yes or no?');
+            choice = choice.toUpperCase();
+        }
+        if(choice === 'NO'){
+            playGame = false;
+            console.log('ALRIGHT BYB BYE!')
+        }
+        else{
+            console.log(`LET'S PLAY AGAIN!`);
+        }
+        }
+
+        
+
+
+
+
+        
+
+    }
+    
+
+</script>
+</body>
+</head>
